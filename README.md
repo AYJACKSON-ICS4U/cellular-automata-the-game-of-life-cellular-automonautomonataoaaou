@@ -5,15 +5,21 @@ Exploring Cellular Automata
 
 
 Learnt -> I learnt what cellular A is, and breifly the concept of how it is so simle, and it is repetitive but also random at the same time and very unique.
+
 Still dont know-> some parts of the coding, and making it into Javascript
+
 Ideas to try->nShiffmans suggestions to get 4
 
 
 
-
+:octocat:
 
 Here is a GIF of callular A  number 90
+
+
 <a href="https://imgflip.com/gif/22rc5o"><img src="https://i.imgflip.com/22rc5o.gif" title="made at imgflip.com"/></a>
+
+
 
 
 
