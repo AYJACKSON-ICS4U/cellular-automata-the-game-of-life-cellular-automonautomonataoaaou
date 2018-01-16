@@ -1,0 +1,46 @@
+// The Nature of Code
+// Daniel Shiffman
+// http://natureofcode.com
+
+// Wolfram Cellular Automata
+
+// Simple demonstration of a Wolfram 1-dimensional cellular automata
+// with the system scrolling by
+// Also implements wrap around
+
+CA ca;   // An object to describe a Wolfram elementary Cellular Automata . //this is creating a class for the cellular A
+
+
+void setup() { .  //this is the setup
+  size(800, 800);   //here is just like creating canvas, where it prints it in the 800x800 space
+  frameRate(30); //this is just how smooth it funs. where 10 frame rate would be very choppy, while 900 would be more smooth but not very noticable
+  background(255);   //this is a background color of white
+  //float m  =1;    //this is just a variable i used for trying to make a random ruleset, but it didnt work
+  //m = random(1,5);  //this is to select a random number for m
+  //if (m==1) //this is case 1
+  //{
+  //int[] ruleset = {0,1,1,1,1,0,1,1};           // Rule 222  
+  //} else if (m==2){
+  //  int[] ruleset = {0,1,1,1,1,1,0,1};           // Rule 190 
+  //}else if (m==3){
+  //  int[] ruleset = {0,1,1,1,1,0,0,0};           // Rule 30   
+  //}else if (m==4){
+  //  int[] ruleset = {0,1,0,1,1,0,1,0};           // Rule 90  
+  //}else{
+  //  int[] ruleset = {0,1,1,1,0,1,1,0};             // Rule 110  
+  //}       //if statement for random
+ // I tried to get a random to select a certain ruleset, but it was not working because it wanted a certain  
+  int[] ruleset = {0,1,0,1,1,0,1,0}; //this one is a fractal .  //this is ruleset 90 from wolframe
+  // 
+ 
+ 
+ // int[] ruleset = {0,1,1,1,0,1,1,0};             // Rule 110     //rule set 110 but its commented out
+ 
+  
+  ca = new CA(ruleset);                 // Initialize the CA
+}
+
+void draw() {
+  ca.display();          // Draw the CA . //this is just generating and displaying the ca, which is basically frawing the output
+  ca.generate();
+}
