@@ -1,0 +1,105 @@
+// The Nature of Code
+// Daniel Shiffman
+// http://natureofcode.com
+
+// Wolfram Cellular Automata
+
+// A class to manage the CA
+
+class CA { .  //this is a class 
+
+  int generation;  // How many generations?   this is the intiger for generations
+  int[] ruleset;   // An array to store the ruleset, for example {0,1,1,0,1,1,0,1} . this is selected in the othhe file
+  int w = 5;
+  int[][] matrix;  // Store a history of generations in 2D array, not just one
+
+  int cols;  //this is the columbs 
+  int rows;  //this is the int for the amound of rows
+
+
+  CA(int[] r) {    // this is for what CA is.  the array r is ruleset
+    ruleset = r;   //array r is ruleset
+    cols = width/w;       //columbs is width divided by 5, w
+    rows = height/w;  //rows is height divided by 5, w
+    matrix = new int[cols][rows];      //the array but its using columbs div 5 and rows div 5, so the new cols and rows
+    restart();  //it now restarts
+  }
+
+  // Make a random ruleset    //this .  is now making a random new ruleset
+  void randomize() {     //it is the ffnction randomize
+    for (int i = 0; i < 8; i++) {     //for 8, the length of a ruleset
+      ruleset[i] = int(random(2));    // this is for the random in of it, each one is a random of 0 or 1
+    }
+  }
+
+  // Reset to generation 0      //this is to reset
+  void restart() { . //function of restart
+    for (int i = 0; i < cols; i++) { .  //for the amound of columbs
+      for (int j = 0; j < rows; j++) { . //and for the amount of rows .  #nested forloop 
+        matrix[i][j] = 0;      //the new array part of those cordinates its now 0
+      }
+    }
+    matrix[cols/2][0] = 1;    // We arbitrarily start with just the middle cell having a state of "1"
+    generation = 0;  //generation is now 0
+  }
+
+
+  // The process of creating the new generation
+  void generate() { .  //this is a function for generating
+
+    // For every spot, determine new state by examing current state, and neighbor states
+    // Ignore edges that only have one neighor
+    for (int i = 0; i < cols; i++) { . //loop for length of columbs
+      int left  = matrix[(i+cols-1)%cols][generation%rows];   // Left neighbor state . //the state of the neighbors to the left
+      int me    = matrix[i][generation%rows];       // Current state //waht the state is currently
+      int right = matrix[(i+1)%cols][generation%rows];  // Right neighbor state . / ///finds the state of the neighbor to the right, becuse i+1 is right, and its same row
+      matrix[i][(generation+1)%rows] = rules(left, me, right); // Compute next generation state based on ruleset
+    }
+    generation++;  //its the next generation now, they add 1
+  }
+
+  // This is the easy part, just draw the cells, fill 255 for '1', fill 0 for '0' .  
+  void display() {
+    int offset = generation%rows; //this is ofseting it 
+
+    for (int i = 0; i < cols; i++) { //for length of colums
+      for (int j = 0; j < rows; j++) { //for length of rows
+        int y = j - offset;// the y variable is current place in row minus generation%rows
+        if (y <= 0) y = rows + y;   //if y is less than or equal to 0, y is rows + itself
+        if (matrix[i][j] == 1) fill(19,290,33);  //if its one, it is black
+        else                   fill(255,13,24); // Here i changed it to green and red christmas themes, but its not in the other files
+        noStroke();                       //I realized that 
+        rect(i*w, (y-1)*w, w, w);    ,,this is creating the rectangle, the small space thing , where its location is moving with y-1 and i*w and ways its the thing that changes color
+      }
+    }
+  }
+  // Implementing the Wolfram rules
+  // This is the concise conversion to binary way
+  /*int rules (int a, int b, int c) {
+   String s = "" + a + b + c;
+   int index = Integer.parseInt(s, 2);
+   return ruleset[index];
+   }*/
+  // For JavaScript Mode
+  int rules (int a, int b, int c) {
+    if (a == 1 && b == 1 && c == 1) return ruleset[7];   //these are the fulesets
+    if (a == 1 && b == 1 && c == 0) return ruleset[6];   //its self explanitory, wher its jsut the different possiblilities of neightbors
+    if (a == 1 && b == 0 && c == 1) return ruleset[5];
+    if (a == 1 && b == 0 && c == 0) return ruleset[4];
+    if (a == 0 && b == 1 && c == 1) return ruleset[3];
+    if (a == 0 && b == 1 && c == 0) return ruleset[2];
+    if (a == 0 && b == 0 && c == 1) return ruleset[1];
+    if (a == 0 && b == 0 && c == 0) return ruleset[0];
+    return 0;
+  }
+
+  // The CA is done if it reaches the bottom of the screen
+  boolean finished() {
+    if (generation > height/w) {       if generation is bigger than hight/w, which is 5
+      return true;   //return boolean true
+    } 
+    else {
+      return false;   //if not logner, return boolean false
+    }
+  }
+}
