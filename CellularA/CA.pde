@@ -66,8 +66,8 @@ class CA {
       for (int j = 0; j < rows; j++) {
         int y = j - offset;
         if (y <= 0) y = rows + y;
-        if (matrix[i][j] == 1) fill(0);
-        else                   fill(255);
+         if (matrix[i][j] == 1) fill(19,290,33);  //if its one, it is black
+        else                   fill(255,13,24);
         noStroke();
         rect(i*w, (y-1)*w, w, w);
       }
